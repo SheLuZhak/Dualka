@@ -25,7 +25,8 @@ namespace cccc
             }
             EnterDataInFile(CookBook);
             Search(CookBook);
-            //ChangeName(CookBook);
+            ReadDataFromAFile(CookBook);
+            ChangeName(CookBook);
             Console.ReadLine();
         }
         static void EnterDataInFile(Dictionary<string, string> book)
@@ -57,6 +58,26 @@ namespace cccc
                     Console.WriteLine(x.Value);
                 }
             }
+        }
+        static void ReadDataFromAFile(Dictionary<string, string> book)
+        {
+            string Enter = @"F:\3_ask\c#2.txt";
+            if (!File.Exists(Enter))
+            {
+                File.Create(Enter);
+            }
+            using (StreamReader To_read = new StreamReader(FaleName))
+            {
+                Console.WriteLine(To_read.ReadToEnd());
+            }
+            using (StreamWriter writer = new StreamWriter(Enter))
+            {
+                foreach (var x in book)
+                {
+                    writer.WriteLine(x.Key);
+                }
+            }
+
         }
         static void ChangeName(Dictionary<string, string> book)
         {
