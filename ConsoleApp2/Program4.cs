@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+
 namespace cccc
 {
     class Program
     {
-        public static string FaleName = @"D:\cooksBook.txt";
         public static void Main()
         {
             Dictionary<string, string> CookBook = new Dictionary<string, string>();
@@ -24,17 +24,18 @@ namespace cccc
                     kvp.Key, kvp.Value);
             }
             EnterDataInFile(CookBook);
-            Search(CookBook);
-            //ChangeName(CookBook);
+            ChangeName(CookBook);
             Console.ReadLine();
         }
         static void EnterDataInFile(Dictionary<string, string> book)
         {
+            string FaleName = @"D:\cooksBook.txt";
 
             if (!File.Exists(FaleName))
             {
                 File.Create(FaleName);
             }
+
             using (StreamWriter writer = new StreamWriter(FaleName))
             {
                 foreach (var x in book)
@@ -43,20 +44,7 @@ namespace cccc
                     writer.Write(x.Value);
                 }
             }
-        }
-        static void Search(Dictionary<string, string> book)
-        {
-            Console.WriteLine("Enter a recipe name: ");
-            string Name = Console.ReadLine();
 
-            foreach (var x in book)
-            {
-                if (x.Key == Name)
-                {
-                    Console.WriteLine("\n{0}", x.Key);
-                    Console.WriteLine(x.Value);
-                }
-            }
         }
         static void ChangeName(Dictionary<string, string> book)
         {
@@ -66,15 +54,19 @@ namespace cccc
             string NewName = Console.ReadLine();
             foreach (var name in book)
             {
-                if (name.Key == Name)
+                if(name.Key == Name)
                 {
                     string value = name.Value;
                     book.Remove(name.Key);
                     book[NewName] = value;
+                    
                     break;
                 }
             }
             EnterDataInFile(book);
         }
+       
     }
-    }
+       
+}
+
