@@ -25,6 +25,7 @@ namespace cccc
             }
             EnterDataInFile(CookBook);
             Search(CookBook);
+            //ChangeName(CookBook);
             Console.ReadLine();
         }
         static void EnterDataInFile(Dictionary<string, string> book)
@@ -45,20 +46,35 @@ namespace cccc
         }
         static void Search(Dictionary<string, string> book)
         {
-            Console.WriteLine("Enter a recipe name");
+            Console.WriteLine("Enter a recipe name: ");
             string Name = Console.ReadLine();
-            using (StreamWriter write = new StreamWriter(FaleName))
+
+            foreach (var x in book)
             {
-                foreach (var x in book)
+                if (x.Key == Name)
                 {
-                    if (x.Key == Name)
-                    {
-                        write.Write("\n(0)", x.Key);
-                        write.Write(x.Value);
-                    }
+                    Console.WriteLine("\n{0}", x.Key);
+                    Console.WriteLine(x.Value);
                 }
             }
-
+        }
+        static void ChangeName(Dictionary<string, string> book)
+        {
+            Console.WriteLine("Enter a name which you want to change: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Enter a new name: ");
+            string NewName = Console.ReadLine();
+            foreach (var name in book)
+            {
+                if (name.Key == Name)
+                {
+                    string value = name.Value;
+                    book.Remove(name.Key);
+                    book[NewName] = value;
+                    break;
+                }
+            }
+            EnterDataInFile(book);
         }
     }
     }
